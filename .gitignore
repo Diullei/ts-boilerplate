@@ -1,0 +1,8 @@
+/bin/
+/node_modules/
+/temp/
+/vendor/bower/
+/.tscache/
+*.js
+*.js.map
+!/Gruntfile.js
