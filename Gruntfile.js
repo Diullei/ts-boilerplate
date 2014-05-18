@@ -68,6 +68,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('check-code-style', ['jshint:all', 'tslint:all']);
     grunt.registerTask('build', ['ts:build', 'ts:test']);
-    grunt.registerTask('test', ['jasmine:pivotal']);
-    grunt.registerTask('default', ['check-code-style', 'build', 'test']);
+    grunt.registerTask('test', ['check-code-style', 'build', 'jasmine:pivotal']);
+    grunt.registerTask('default', ['test']);
 };
