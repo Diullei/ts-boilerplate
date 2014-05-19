@@ -4,7 +4,7 @@
   "description": "A boilerplate for building TypeScript applications.",
   "main": "bin/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "author": "Diullei",
   "license": "MIT",
@@ -14,15 +14,13 @@
     "grunt-ts": "~1.11.2",
     "grunt-contrib-jasmine": "~0.6.4",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-tslint": "~0.4.1"
+    "grunt-tslint": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0"
   },
   "peerDependencies": {
     "grunt-cli": "*",
-	"tsd": "*",
-	"bower": "*",
+    "tsd": "*",
+    "bower": "*",
     "typescript": "*"
-  },
-  "scripts": {
-    "test": "grunt test"
   }
 }
