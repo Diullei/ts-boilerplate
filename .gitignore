@@ -2,6 +2,7 @@
 /node_modules/
 /temp/
 /vendor/bower/
+/test/reports/
 /.tscache/
 *.js
 *.js.map
