@@ -1,14 +1,17 @@
 module.exports = function(grunt) {
     'use strict';
 
-    grunt.loadNpmTasks('grunt-contrib-jasmine');    // https://github.com/gruntjs/grunt-contrib-jasmine
-    grunt.loadNpmTasks('grunt-ts');                 // https://github.com/grunt-ts/grunt-ts
-    grunt.loadNpmTasks('grunt-contrib-clean');      // https://github.com/gruntjs/grunt-contrib-clean
-    grunt.loadNpmTasks('grunt-contrib-jshint');     // https://github.com/gruntjs/grunt-contrib-jshint
-    grunt.loadNpmTasks('grunt-tslint');             // https://github.com/palantir/grunt-tslint
+    grunt.loadNpmTasks('grunt-ts');                     // https://github.com/grunt-ts/grunt-ts
+    grunt.loadNpmTasks('grunt-contrib-clean');          // https://github.com/gruntjs/grunt-contrib-clean
+    grunt.loadNpmTasks('grunt-contrib-jshint');         // https://github.com/gruntjs/grunt-contrib-jshint
+    grunt.loadNpmTasks('grunt-tslint');                 // https://github.com/palantir/grunt-tslint
+    grunt.loadNpmTasks('grunt-jasmine-node-coverage');  // https://github.com/jribble/grunt-jasmine-node-coverage
 
     grunt.initConfig({
-        clean: ['bin/', 'test/reports'],            // Wipe out previous builds and test reporting.
+        clean: ['bin/*.*',
+                'bin',
+                'test/reports/*.*',
+                'test/reports'],                    // Wipe out previous builds and test reporting.
 
         ts: {
             build: {
@@ -26,50 +29,32 @@ module.exports = function(grunt) {
             test: {                                 // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
                 src: ['test/**/*.ts'],
                 options: {
+                    target: 'es3',
+                    module: 'commonjs',
                     sourceMap: true,
+                    declaration: false,
+                    removeComments: true
                 },
             }
         },
 
-        jasmine: {
-            run: {
-                src: 'bin/**/*.js',
-                options: {
-                    specs: 'test/specs/*Spec.js',
-                    helpers: 'test/specs/*Helper.js'
-                }
-            },
+        /* jshint camelcase: false */
+        jasmine_node: {
             coverage: {
-                src: ['bin/**/*.js'],
-                options: {
-                    specs: ['test/specs/*Spec.js'],
-                    template: require('grunt-template-jasmine-istanbul'),
-                    templateOptions: {
-                        coverage: 'test/reports/coverage/coverage.json',
-                        report: [
-							{
-							    type: 'html',
-							    options: {
-							        dir: 'test/reports/coverage/html'
-							    }
-							},
-							{
-							    type: 'cobertura',
-							    options: {
-							        dir: 'test/reports/coverage/cobertura'
-							    }
-							},
-							{
-							    type: 'text-summary'
-							}
-                        ],
-                        thresholds: {
-                            lines: 75,
-                            statements: 75,
-                            branches: 75,
-                            functions: 90
-                        }
-                    }
+                savePath: './test/reports/coverage'
+            },
+            options: {
+                forceExit: true,
+                match: '.',
+                matchall: false,
+                extensions: 'js',
+                specNameMatcher: '.*Spec',
+                captureExceptions: true,
+                junitreport: {
+                    report: false,
+                    savePath : './test/reports/',
+                    useDotNotation: true,
+                    consolidate: true
                 }
             }
         },
@@ -93,6 +78,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('check-code-style', ['jshint:all', 'tslint:all']);
     grunt.registerTask('build', ['ts:build', 'ts:test']);
-    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'jasmine:run', 'jasmine:coverage']);
+    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'jasmine_node']);
     grunt.registerTask('default', ['test']);
 };
