@@ -6,6 +6,7 @@
 /.tscache/
 /.grunt/
 /typings/*
+*.js
 *.js.map
 !/Gruntfile.js
 !/typings/tsd.d.ts
