@@ -5,6 +5,7 @@
 /vendor/bower/
 /test/reports/
 /.tscache/
+/.grunt/
 *.js
 *.js.map
 !/Gruntfile.js
