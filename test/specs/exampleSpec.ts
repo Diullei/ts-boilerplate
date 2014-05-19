@@ -4,7 +4,7 @@ import sinon = require('sinon');
 
 describe('SinonJs spy example', () => {
     it('test should call testFn function once time', () => {
-        var message = 'an example message';
+
         var spy = sinon.spy();
 
         var testFn = (fn: Function) => {

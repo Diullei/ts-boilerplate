@@ -1,5 +1,6 @@
 /bin/
 /node_modules/
+/typings/
 /temp/
 /vendor/bower/
 /test/reports/
