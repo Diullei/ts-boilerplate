@@ -32,11 +32,44 @@ module.exports = function(grunt) {
         },
 
         jasmine: {
-            pivotal: {
-                src: 'src/**/*.js',
+            run: {
+                src: 'bin/**/*.js',
                 options: {
                     specs: 'test/specs/*Spec.js',
                     helpers: 'test/specs/*Helper.js'
+                }
+            },
+            coverage: {
+                src: ['bin/**/*.js'],
+                options: {
+                    specs: ['test/specs/*Spec.js'],
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'test/reports/coverage/coverage.json',
+                        report: [
+							{
+							    type: 'html',
+							    options: {
+							        dir: 'test/reports/coverage/html'
+							    }
+							},
+							{
+							    type: 'cobertura',
+							    options: {
+							        dir: 'test/reports/coverage/cobertura'
+							    }
+							},
+							{
+							    type: 'text-summary'
+							}
+                        ],
+                        thresholds: {
+                            lines: 75,
+                            statements: 75,
+                            branches: 75,
+                            functions: 90
+                        }
+                    }
                 }
             }
         },
@@ -58,8 +91,8 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('check-code-style',  ['jshint:all', 'tslint:all']);
-    grunt.registerTask('build',             ['ts:build', 'ts:test']);
-    grunt.registerTask('test',              ['clean', 'check-code-style', 'build', 'jasmine:pivotal']);
-    grunt.registerTask('default',           ['test']);
+    grunt.registerTask('check-code-style', ['jshint:all', 'tslint:all']);
+    grunt.registerTask('build', ['ts:build', 'ts:test']);
+    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'jasmine:run', 'jasmine:coverage']);
+    grunt.registerTask('default', ['test']);
 };
