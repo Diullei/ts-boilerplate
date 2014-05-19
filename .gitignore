@@ -5,7 +5,7 @@
 /test/reports/
 /.tscache/
 /.grunt/
-/typings/*.**.js
+/typings/*
 *.js.map
 !/Gruntfile.js
 !/typings/tsd.d.ts
