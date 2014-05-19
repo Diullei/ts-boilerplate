@@ -1,12 +1,11 @@
 /bin/
 /node_modules/
-/typings/
 /temp/
 /vendor/bower/
 /test/reports/
 /.tscache/
 /.grunt/
-*.js
+/typings/*.**.js
 *.js.map
 !/Gruntfile.js
 !/typings/tsd.d.ts
