@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');          // https://github.com/gruntjs/grunt-contrib-clean
     grunt.loadNpmTasks('grunt-contrib-jshint');         // https://github.com/gruntjs/grunt-contrib-jshint
     grunt.loadNpmTasks('grunt-tslint');                 // https://github.com/palantir/grunt-tslint
-    grunt.loadNpmTasks('grunt-jasmine-node-coverage');  // https://github.com/jribble/grunt-jasmine-node-coverage
+    grunt.loadNpmTasks('grunt-contrib-jasmine');        // https://github.com/gruntjs/grunt-contrib-jasmine
 
     grunt.initConfig({
         clean: ['bin/*.*',
@@ -38,23 +38,52 @@ module.exports = function(grunt) {
             }
         },
 
-        /* jshint camelcase: false */
-        jasmine_node: {
-            coverage: {
-                savePath: './test/reports/coverage'
+        jasmine: {
+            run: {
+                src: 'bin/**/*.js',
+                options: {
+                    specs: 'test/specs/*Spec.js',
+                    helpers: 'test/specs/*Helper.js',
+                    vendor: [
+                        'vendor/bower/sinonjs/sinon.js'
+                    ]
+                }
             },
-            options: {
-                forceExit: true,
-                match: '.',
-                matchall: false,
-                extensions: 'js',
-                specNameMatcher: '.*Spec',
-                captureExceptions: true,
-                junitreport: {
-                    report: false,
-                    savePath : './test/reports/',
-                    useDotNotation: true,
-                    consolidate: true
+            coverage: {
+                src: ['bin/**/*.js'],
+                options: {
+                    specs: ['test/specs/*Spec.js'],
+                    helpers: 'test/specs/*Helper.js',
+                    vendor: [
+                        'vendor/bower/sinonjs/sinon.js'
+                    ],
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'test/reports/coverage/coverage.json',
+                        report: [
+							{
+							    type: 'html',
+							    options: {
+							        dir: 'test/reports/coverage/html'
+							    }
+							},
+							{
+							    type: 'cobertura',
+							    options: {
+							        dir: 'test/reports/coverage/cobertura'
+							    }
+							},
+							{
+							    type: 'text-summary'
+							}
+                        ],
+                        thresholds: {
+                            lines: 75,
+                            statements: 75,
+                            branches: 75,
+                            functions: 90
+                        }
+                    }
                 }
             }
         },
@@ -78,6 +107,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('check-code-style', ['jshint:all', 'tslint:all']);
     grunt.registerTask('build', ['ts:build', 'ts:test']);
-    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'jasmine_node']);
+    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'jasmine:coverage']);
     grunt.registerTask('default', ['test']);
 };

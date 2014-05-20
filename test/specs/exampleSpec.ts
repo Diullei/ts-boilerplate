@@ -1,7 +1,5 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-import sinon = require('sinon');
-
 describe('SinonJs spy example', () => {
     it('test should call testFn function once time', () => {
 
