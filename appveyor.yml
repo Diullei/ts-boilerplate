@@ -1,9 +1,13 @@
 # appveyor file
 # http://www.appveyor.com/docs/appveyor-yml
-project_id: "6kl6wffsbu6ivfpu"
 
 # build version format
 version: 1.0.{build}
+
+branches:
+  only:
+    - master-browser
+	- master-nodejs
 
 # Operating system (build VM template)
 os: Windows Server 2012
