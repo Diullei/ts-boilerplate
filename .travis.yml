@@ -5,7 +5,7 @@ node_js:
 branches:
   only:
     - master-browser
-	- master-nodejs
+    - master-nodejs
 
 before_install:
   - npm install -gq grunt-cli tsd bower typescript

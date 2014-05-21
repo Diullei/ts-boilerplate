@@ -7,7 +7,7 @@ version: 1.0.{build}
 branches:
   only:
     - master-browser
-	- master-nodejs
+    - master-nodejs
 
 # Operating system (build VM template)
 os: Windows Server 2012
