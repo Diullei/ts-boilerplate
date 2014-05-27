@@ -1,6 +1,14 @@
 /// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../src/_reference.ts" />
 
 import sinon = require('sinon');
+import main = require('../../src/main');
+
+describe('Testing main module', () => {
+    it('say: Hello world!', () => {
+        expect(main.greeter()).toEqual('Hello world!');
+    });
+});
 
 describe('SinonJs spy example', () => {
     it('test should call testFn function once time', () => {
