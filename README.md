@@ -36,13 +36,16 @@ Third party packages may update independently from this main repo, so it's a goo
 npm install -g typescript
 
 # Install global dependencies.
-npm install -g grunt-cli tsd
+npm install -g grunt-cli bower tsd
 
 # Install NPM dependencies.
 npm install
 
 # Install TSD dependencies.
 tsd reinstall
+
+# Install bower dependencies.
+bower install
 ```
 
 ## Build process
