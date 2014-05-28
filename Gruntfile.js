@@ -11,17 +11,17 @@ module.exports = function(grunt) {
         clean: ['bin/*.*',
                 'bin',
                 'test/reports/*.*',
-                'test/reports'],                    // Wipe out previous builds and test reporting.
+                'test/reports',
+                'test/specs/*.js'],                    // Wipe out previous builds and test reporting.
 
         ts: {
             build: {
                 src: ['src/**/*.ts'],               // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
                 reference: './src/_reference.ts',   // If specified, generate this file that to can use for reference management
-                outDir: 'bin',                      // If specified, the generate JavaScript files are placed here. Only works if out is not specified
+                out: 'bin/main.js',                 // If specified, the generate JavaScript files are placed here. Only works if out is not specified
                 options: {                          // Use to override the default options, http://gruntjs.com/configuring-tasks#options
                     target: 'es3',                  // 'es3' (default) | 'es5'
-                    module: 'commonjs',             // 'amd' (default) | 'commonjs'    
-                    sourceMap: false,               // true (default) | false
+                    sourceMap: true,               // true (default) | false
                     declaration: false,             // true | false (default)
                     removeComments: true            // true (default) | false
                 },
@@ -30,7 +30,6 @@ module.exports = function(grunt) {
                 src: ['test/**/*.ts'],
                 options: {
                     target: 'es3',
-                    module: 'commonjs',
                     sourceMap: true,
                     declaration: false,
                     removeComments: true
@@ -44,6 +43,7 @@ module.exports = function(grunt) {
                 options: {
                     specs: 'test/specs/*Spec.js',
                     helpers: 'test/specs/*Helper.js',
+                    version: '2.0.0',
                     vendor: [
                         'vendor/bower/sinonjs/sinon.js'
                     ]
@@ -54,6 +54,7 @@ module.exports = function(grunt) {
                 options: {
                     specs: ['test/specs/*Spec.js'],
                     helpers: 'test/specs/*Helper.js',
+                    version: '2.0.0',
                     vendor: [
                         'vendor/bower/sinonjs/sinon.js'
                     ],

@@ -1,4 +1,25 @@
 /// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../src/_reference.ts" />
+
+describe('Testing main module', () => {
+    it('say: Hello world!', () => {
+        expect(Main.greeter()).toEqual('Hello world!');
+    });
+
+    it('not say: Hi guys!', () => {
+        expect(Main.greeter()).not.toEqual('Hi guys');
+    });
+
+    it('1 + 1 must be 2', () => {
+        expect(Main.sum(1, 1)).toBe(2);
+    });
+});
+
+describe('Testing main module 2', () => {
+    it('1 + 3 must be 2', () => {
+        expect(Main.sum(1, 1)).toBe(2);
+    });
+});
 
 describe('SinonJs spy example', () => {
     it('test should call testFn function once time', () => {
