@@ -1,5 +1,5 @@
 /// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="../../src/_reference.ts" />
+/// <reference path="../../src/scripts/_reference.ts" />
 
 describe('Testing main module', () => {
     it('say: Hello world!', () => {
