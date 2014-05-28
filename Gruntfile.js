@@ -8,25 +8,25 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');        // https://github.com/gruntjs/grunt-contrib-jasmine
 
     grunt.initConfig({
-        clean: ['bin/*.*',
-                'bin',
+        clean: ['dist/*.*',
+                'dist',
                 'test/reports/*.*',
-                'test/reports',
-                'test/specs/*.js'],                    // Wipe out previous builds and test reporting.
+                'test/reports',                         // Wipe out previous builds and test reporting.
+                'test/specs/*.js'],
 
         ts: {
             build: {
-                src: ['src/**/*.ts'],               // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
-                reference: './src/_reference.ts',   // If specified, generate this file that to can use for reference management
-                out: 'bin/main.js',                 // If specified, the generate JavaScript files are placed here. Only works if out is not specified
-                options: {                          // Use to override the default options, http://gruntjs.com/configuring-tasks#options
-                    target: 'es3',                  // 'es3' (default) | 'es5'
-                    sourceMap: true,               // true (default) | false
-                    declaration: false,             // true | false (default)
-                    removeComments: true            // true (default) | false
+                src: ['src/scripts/**/*.ts'],               // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
+                reference: './src/scripts/_reference.ts',   // If specified, generate this file that to can use for reference management
+                out: 'scripts/main.js',                     // If specified, the generate JavaScript files are placed here. Only works if out is not specified
+                options: {                                  // Use to override the default options, http://gruntjs.com/configuring-tasks#options
+                    target: 'es3',                          // 'es3' (default) | 'es5'
+                    sourceMap: true,                        // true (default) | false
+                    declaration: false,                     // true | false (default)
+                    removeComments: true                    // true (default) | false
                 },
             },
-            test: {                                 // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
+            test: {                                         // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
                 src: ['test/**/*.ts'],
                 options: {
                     target: 'es3',
@@ -39,24 +39,26 @@ module.exports = function(grunt) {
 
         jasmine: {
             run: {
-                src: 'bin/**/*.js',
+                src: 'src/scripts/**/*.js',
                 options: {
                     specs: 'test/specs/*Spec.js',
                     helpers: 'test/specs/*Helper.js',
                     version: '2.0.0',
                     vendor: [
-                        'vendor/bower/sinonjs/sinon.js'
+                        'vendor/bower/sinonjs/sinon.js',
+                        'vendor/bower/jquery/jquery.js'
                     ]
                 }
             },
             coverage: {
-                src: ['bin/**/*.js'],
+                src: ['src/scripts/**/*.js'],
                 options: {
                     specs: ['test/specs/*Spec.js'],
                     helpers: 'test/specs/*Helper.js',
                     version: '2.0.0',
                     vendor: [
-                        'vendor/bower/sinonjs/sinon.js'
+                        'vendor/bower/sinonjs/sinon.js',
+                        'vendor/bower/jquery/jquery.js'
                     ],
                     template: require('grunt-template-jasmine-istanbul'),
                     templateOptions: {

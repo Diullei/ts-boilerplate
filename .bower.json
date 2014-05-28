@@ -1,6 +1,9 @@
 {
   "name": "ts-boilerplate",
+  "private": true,
   "dependencies": {
+    "bootstrap": "~3.0.3",
+    "jquery": "~1.11.0",
 	"sinonjs": "1.7.3"
   }
 }
