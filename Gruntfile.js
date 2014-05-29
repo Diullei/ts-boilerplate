@@ -2,18 +2,36 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.loadNpmTasks('grunt-ts');                     // https://github.com/grunt-ts/grunt-ts
+    grunt.loadNpmTasks('grunt-tslint');                 // https://github.com/palantir/grunt-tslint
     grunt.loadNpmTasks('grunt-contrib-clean');          // https://github.com/gruntjs/grunt-contrib-clean
     grunt.loadNpmTasks('grunt-contrib-jshint');         // https://github.com/gruntjs/grunt-contrib-jshint
-    grunt.loadNpmTasks('grunt-tslint');                 // https://github.com/palantir/grunt-tslint
     grunt.loadNpmTasks('grunt-contrib-jasmine');        // https://github.com/gruntjs/grunt-contrib-jasmine
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-rev');
+    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-svgmin');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
     // Configurable paths
     var config = {
-        app: './src/',
-        dist: './dist'
+        app: 'src',
+        dist: 'dist'
     };
 
     grunt.initConfig({
@@ -35,8 +53,8 @@ module.exports = function(grunt) {
         ts: {
             build: {
                 src: ['src/scripts/**/*.ts'],               // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
-                reference: './src/scripts/_reference.ts',   // If specified, generate this file that to can use for reference management
-                out: 'scripts/main.js',                     // If specified, the generate JavaScript files are placed here. Only works if out is not specified
+                reference: 'src/scripts/_reference.ts',   // If specified, generate this file that to can use for reference management
+                out: 'src/scripts/main.js',                     // If specified, the generate JavaScript files are placed here. Only works if out is not specified
                 options: {                                  // Use to override the default options, http://gruntjs.com/configuring-tasks#options
                     target: 'es3',                          // 'es3' (default) | 'es5'
                     sourceMap: true,                        // true (default) | false
@@ -64,8 +82,8 @@ module.exports = function(grunt) {
                     helpers: 'test/specs/*Helper.js',
                     version: '2.0.0',
                     vendor: [
-                        'vendor/bower/sinonjs/sinon.js',
-                        'vendor/bower/jquery/jquery.js'
+                        'vendor/bower/jquery/dist/jquery.js',
+                        'vendor/bower/sinonjs/sinon.js'
                     ]
                 }
             },
@@ -76,8 +94,8 @@ module.exports = function(grunt) {
                     helpers: 'test/specs/*Helper.js',
                     version: '2.0.0',
                     vendor: [
-                        'vendor/bower/sinonjs/sinon.js',
-                        'vendor/bower/jquery/jquery.js'
+                        'vendor/bower/jquery/dist/jquery.js',
+                        'vendor/bower/sinonjs/sinon.js'
                     ],
                     template: require('grunt-template-jasmine-istanbul'),
                     templateOptions: {
@@ -137,36 +155,34 @@ module.exports = function(grunt) {
                 // Change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },
-            livereload: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use('/vendor/bower', connect.static('./vendor/bower')),
-                            connect.static(config.app)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    open: false,
-                    port: 9001,
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect.static('test'),
-                            connect().use('/vendor/bower', connect.static('./vendor/bower')),
-                            connect.static(config.app)
-                        ];
-                    }
-                }
-            },
             dist: {
                 options: {
                     base: '<%= config.dist %>',
                     livereload: false
                 }
+            }
+        },
+
+        // Add vendor prefixed styles
+        autoprefixer: {
+            options: {
+                browsers: ['last 1 version']
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/styles/',
+                    src: '{,*/}*.css',
+                    dest: '.tmp/styles/'
+                }]
+            }
+        },
+
+        // Automatically inject Bower components into the HTML file
+        bowerInstall: {
+            app: {
+                src: ['<%= config.app %>/index.html'],
+                exclude: ['/vendor/bower/bootstrap/dist/js/bootstrap.js']
             }
         },
 
@@ -258,7 +274,7 @@ module.exports = function(grunt) {
                     dest: '<%= config.dist %>',
                     src: [
                         '*.{ico,png,txt}',
-                        '.htaccess',
+                        //'.htaccess',
                         'images/{,*/}*.webp',
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*'
@@ -266,7 +282,7 @@ module.exports = function(grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: './vendor/bower/bootstrap/dist',
+                    cwd: 'vendor/bower/bootstrap/dist',
                     src: ['fonts/*.*'],
                     dest: '<%= config.dist %>'
                 }]
@@ -296,24 +312,12 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('serve', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
-        }
-
-        grunt.task.run([
-            //'clean:server',
-            'clean',
-            'concurrent:server',
-            'autoprefixer',
-            'connect:livereload'//,
-            //'watch'
-        ]);
-    });
-
-    grunt.registerTask('check-code-style', ['jshint:all', 'tslint:all']);
-    grunt.registerTask('build', ['ts:build',
-        //'clean:dist',
+    grunt.registerTask('check-code-style', [
+        'jshint:all',
+        'tslint:all'
+    ]);
+    grunt.registerTask('build', [
+        'ts:build',
         'clean',
         'useminPrepare',
         'concurrent:dist',
@@ -326,6 +330,15 @@ module.exports = function(grunt) {
         'usemin',
         'htmlmin'
     ]);
-    grunt.registerTask('test', ['clean', 'check-code-style', 'build', 'ts:test', 'jasmine:coverage']);
+    grunt.registerTask('serve', [
+        'build',
+        'connect:dist:keepalive'
+    ]);
+    grunt.registerTask('test', [
+        'check-code-style',
+        'build',
+        'ts:test',
+        'jasmine:coverage'
+    ]);
     grunt.registerTask('default', ['test']);
 };

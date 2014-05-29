@@ -1,7 +1,30 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../src/scripts/_reference.ts" />
 
-describe('Testing main module', () => {
+describe('Testing ts modules - HelloWorld class', () => {
+    it('starting time on button click', () => {
+        var el = $('<div></div>');
+        var btn = $('<button></button>');
+        var helloworld = new Main.HelloWorld(el, btn);
+
+        btn.click();
+
+        expect(helloworld.isStopped()).toBeFalsy();
+    });
+
+    it('stop time with two button clicks', () => {
+        var el = $('<div></div>');
+        var btn = $('<button></button>');
+        var helloworld = new Main.HelloWorld(el, btn);
+
+        btn.click();
+        btn.click();
+
+        expect(helloworld.isStopped()).toBeTruthy();
+    });
+});
+
+describe('Testing ts modules - exported functions', () => {
     it('say: Hello world!', () => {
         expect(Main.greeter()).toEqual('Hello world!');
     });
@@ -10,13 +33,7 @@ describe('Testing main module', () => {
         expect(Main.greeter()).not.toEqual('Hi guys');
     });
 
-    it('1 + 1 must be 2', () => {
-        expect(Main.sum(1, 1)).toBe(2);
-    });
-});
-
-describe('Testing main module 2', () => {
-    it('1 + 3 must be 2', () => {
+    it('1 + 1 = 2', () => {
         expect(Main.sum(1, 1)).toBe(2);
     });
 });
