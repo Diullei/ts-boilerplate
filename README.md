@@ -10,7 +10,7 @@ I hope it's useful for you.
 
 ## Getting started
 
-This branch will install a basic project structure to build a simple web application. It not use CommonJS or AMD module and will output the script to a unique file `./bin/main.js`.
+This branch will install a basic project structure to build a simple web application. It not use CommonJS or AMD module and will output the script to a unique file `./dist/main.js`.
 
 > NOTE: If you're looking for another type of project take a look at the other branchs below:
 * [Simple TypeScript Node.JS app](https://github.com/Diullei/ts-boilerplate/tree/master-nodejs) - [![Build Status](https://travis-ci.org/Diullei/ts-boilerplate.svg?branch=master-nodejs)](https://travis-ci.org/Diullei/ts-boilerplate) <a href="https://ci.appveyor.com/project/Diullei/ts-boilerplate"><img src="https://ci.appveyor.com/api/projects/status/6kl6wffsbu6ivfpu/branch/master-nodejs" alt="Build Status: Windows" height="18" /></a>
