@@ -57,6 +57,19 @@ The build process consists of numerous Grunt plugin tasks that work together to 
 grunt
 ```
 
+Another grunt commands:
+
+```bash
+grunt test
+# To build and execute all tests and code style validations
+
+grunt serve
+# To build and start the project in a browser
+
+grunt check-code-style
+# To check the code style
+```
+
 ## Documentation
 
 > TODO!
