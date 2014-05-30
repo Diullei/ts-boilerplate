@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-node-coverage');  // https://github.com/jribble/grunt-jasmine-node-coverage
 
     // Time how long tasks take. Can help when optimizing build times
-    require('time-grunt')(grunt);
+    // require('time-grunt')(grunt);
 
     grunt.initConfig({
         clean: ['bin/*.*',
