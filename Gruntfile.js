@@ -6,11 +6,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');          // https://github.com/gruntjs/grunt-contrib-clean
     grunt.loadNpmTasks('grunt-contrib-jshint');         // https://github.com/gruntjs/grunt-contrib-jshint
     grunt.loadNpmTasks('grunt-contrib-jasmine');        // https://github.com/gruntjs/grunt-contrib-jasmine
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
